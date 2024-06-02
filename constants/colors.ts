@@ -5,7 +5,8 @@ const COLORS: {[key: string]: string} = {
     secondary: "#39B68D",
     grey: "#949090",
     blue: "#16ADED",
-    left: "#FF7245"
+    left: "#FF7245",
+    red: "#A13030"
 }
 
 export default COLORS;

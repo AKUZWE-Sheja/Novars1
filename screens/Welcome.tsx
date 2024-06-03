@@ -38,7 +38,7 @@ const Welcome: FC<WelcomeProps> = ({ navigation }) => {
       <Icon name="star" size={16} color="#fff" style={styles.star3} />
       <Icon name="star" size={12} color="#fff" style={styles.star4} />
       <View style={{alignItems: 'center', marginTop: -30}}>
-        <Image source={require('../assets/logo.png')} style={styles.image} />
+        <Image resizeMode="contain" source={require('../assets/logo.png')} style={styles.image} />
         <Text style={{fontSize: 30, fontWeight: 'bold', marginBottom: 30, color: COLORS.white}}>Novars</Text>
         <Text style={styles.heading}>Welcome to Novars</Text>
         <Text style={styles.description}>Reviving Agriculture with Innovation</Text>
@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     height: '100%', 
   },
   image: {
-    width: 120,
-    height: 130,
+    width: 130,
+    height: 140,
     borderRadius: 38.68,
     marginBottom: 14,
   },

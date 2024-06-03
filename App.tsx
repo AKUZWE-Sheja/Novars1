@@ -155,6 +155,7 @@ export default function App() {
         <Stack.Screen name="WhiteWelcome" component={WhiteWelcome} />
         <Stack.Screen name="Irrigate" component={TabNavigator} initialParams={{ screen: "Irrigatee" }} />
         <Stack.Screen name="Dashboard" component={TabNavigator} initialParams={{ screen: "Dash" }} />
+        <Stack.Screen name="Settings" component={TabNavigator} initialParams={{ screen: "Setting" }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

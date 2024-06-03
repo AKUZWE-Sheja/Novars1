@@ -6,16 +6,25 @@ import { LineChart } from 'react-native-chart-kit';
 const screenWidth = Dimensions.get('window').width;
 
 const GridDemo: React.FC = () => {
+  const temperatureData = [27, 27, 26, 27, 27, 26, 27, 27];
+  const humidityData = [950, 850, 750, 600, 540, 430, 420, 420];
+
+  // Find the maximum value in humidityData to use for inversion
+  const maxHumidity = Math.max(...humidityData);
+
+  // Invert the humidity data
+  const invertedHumidityData = humidityData.map(value => maxHumidity - value);
+
   const data = {
     labels: ['3AM', '6AM', '9AM', '12PM', '3PM', '6PM', '9PM', '12AM'],
     datasets: [
       {
-        data: [27, 27, 26, 27, 27, 26, 27, 27],
+        data: temperatureData,
         color: () => COLORS.red,
         strokeWidth: 2,
       },
       {
-        data: [0.6, 0.7, 0.9, 0.6, 0.7, 0.9, 0.7, 0.9],
+        data: invertedHumidityData,
         color: () => COLORS.blue,
         strokeWidth: 2,
       },
@@ -46,12 +55,12 @@ const GridDemo: React.FC = () => {
         </View>
         <View style={styles.legendItem}>
           <View style={[styles.legendColor, { backgroundColor: COLORS.blue }]} />
-          <Text style={styles.legendText}>Humidity (%)</Text>
+          <Text style={styles.legendText}>Humidity</Text>
         </View>
       </View>
       <LineChart
         data={data}
-        width={screenWidth - 22}
+        width={screenWidth - 26}
         height={250}
         chartConfig={chartConfig}
         bezier
@@ -64,11 +73,14 @@ const GridDemo: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    width: "99.5%",
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-    backgroundColor: COLORS.white, // Set the background color of the container to white
+    backgroundColor: COLORS.white, 
     paddingBottom: 42,
+    marginVertical: 10,
+
   },
   header: {
     textAlign: 'center',
@@ -91,8 +103,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   legendColor: {
-    width: 20, // Width of the rectangle
-    height: 4, // Height of the rectangle (thin)
+    width: 20,
+    height: 4,
     borderRadius: 2,
     marginRight: 8,
   },

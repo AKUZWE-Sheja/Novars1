@@ -80,7 +80,7 @@ const Dashboard: FC = (): JSX.Element => {
         </View>
         
         <View style={{flexDirection: "row"}}>
-          <View style={{backgroundColor: COLORS.white, width: "100%", height: 170, marginRight: '2%', flexDirection: "row"}}>
+          <View style={{backgroundColor: COLORS.white, width: "100%", height: 160, marginRight: '2%', flexDirection: "row"}}>
             <View style={{ alignItems: 'center', padding: 6, marginBottom: 14 }}>
                 <Text style={{fontWeight: "bold"}}>Current Status Of My Farm</Text>
                 <Image resizeMode="contain" source={require('../assets/farm.png')} style={styles.farmPic} />
@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
   farmPic: {
     width: 180,
     height: 160,
+    top: -10
   },
   legendContainer: {
     marginTop: "20%",

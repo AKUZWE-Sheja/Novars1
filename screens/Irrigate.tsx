@@ -1,8 +1,7 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Switch } from 'react-native';
 import COLORS from '../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
-import useGreeting from 'hooks/useGreeting';
 
 import {
     StyledContainer,
@@ -15,13 +14,15 @@ import {
     PagePic,
     UserDeets,
     SalutePic,
-    Visuary
+    Visuary,
+    Colors
 } from '../components/styles';
 import GridDemo from 'components/IrrigationGraph';
+import useGreeting from 'hooks/useGreeting';
 
 const Irrigate: FC = (): JSX.Element => {
     const [isSystemOn, setIsSystemOn] = useState(false);
-    const { currentTime, greeting } = useGreeting(); 
+    const {currentTime, greeting} = useGreeting();
 
     const toggleSystem = () => {
         setIsSystemOn((prev) => !prev);
@@ -220,17 +221,19 @@ const styles = StyleSheet.create({
     },
     automaticIrrigationHeader: {
         alignItems: "center",
-        marginBottom: 8
+        flexDirection: "row"
     },
     automaticIrrigationTitle: {
-        fontWeight: "bold",
-        fontSize: 11
+        fontSize: 14,
+        fontWeight: "bold"
     },
     automaticIrrigationSubtitle: {
+        color: COLORS.grey,
         fontSize: 8
     },
     switchContainer: {
-        flexDirection: "row",
-        alignItems: "center"
-    }
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: -12,
+    },
 });

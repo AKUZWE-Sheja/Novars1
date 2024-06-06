@@ -142,7 +142,7 @@ function TabNavigator() {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Welcome" screenOptions={upScreen}>
+      <Stack.Navigator initialRouteName="Irrigate" screenOptions={upScreen}>
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="CheckEmail" component={CheckEmail} />
@@ -153,7 +153,7 @@ export default function App() {
         <Stack.Screen name="Automate" component={Automate} />
         <Stack.Screen name="Notify" component={Notify} />
         <Stack.Screen name="WhiteWelcome" component={WhiteWelcome} />
-        <Stack.Screen name="Irrigate" component={TabNavigator} initialParams={{ screen: "Irrigatee" }} />
+        <Stack.Screen name="Irrigate" component={TabNavigator} initialParams={{ screen: "Irrigate" }} />
         <Stack.Screen name="Dashboard" component={TabNavigator} initialParams={{ screen: "Dash" }} />
         <Stack.Screen name="Settings" component={TabNavigator} initialParams={{ screen: "Setting" }} />
       </Stack.Navigator>

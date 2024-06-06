@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Switch } from 'react-native';
 import COLORS from '../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
+import useGreeting from 'hooks/useGreeting';
 
 import {
     StyledContainer,
@@ -14,13 +15,13 @@ import {
     PagePic,
     UserDeets,
     SalutePic,
-    Visuary,
-    Colors
+    Visuary
 } from '../components/styles';
 import GridDemo from 'components/IrrigationGraph';
 
 const Irrigate: FC = (): JSX.Element => {
     const [isSystemOn, setIsSystemOn] = useState(false);
+    const { currentTime, greeting } = useGreeting(); 
 
     const toggleSystem = () => {
         setIsSystemOn((prev) => !prev);
@@ -45,12 +46,12 @@ const Irrigate: FC = (): JSX.Element => {
                 <InnerContainer>
                     <View style={styles.greetingContainer}>
                         <View>
-                            <Text style={styles.greetingText}>Good Morning Smith,</Text>
+                            <Text style={styles.greetingText}>{greeting}</Text>
                             <View style={styles.temperatureContainer}>
                                 <SalutePic resizeMode="cover" source={require('../assets/morning.png')} />
                                 <View style={styles.temperatureTextContainer}>
                                     <Text style={styles.temperatureText}>
-                                        28
+                                        21
                                         <Text style={styles.degreeText}>°C</Text>
                                     </Text>
                                 </View>
@@ -64,7 +65,7 @@ const Irrigate: FC = (): JSX.Element => {
                             <Text>Irrigation Updates</Text>
                             <Text>
                                 <Text style={{ color: COLORS.grey }}>Schedule:</Text>
-                                <Text> 10:00 AM</Text>
+                                <Text> {currentTime}</Text>
                             </Text>
                             <Text>
                                 <Text style={{ color: COLORS.grey }}>Status:</Text>
@@ -219,19 +220,17 @@ const styles = StyleSheet.create({
     },
     automaticIrrigationHeader: {
         alignItems: "center",
-        flexDirection: "row"
+        marginBottom: 8
     },
     automaticIrrigationTitle: {
-        fontSize: 14,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        fontSize: 11
     },
     automaticIrrigationSubtitle: {
-        color: COLORS.grey,
         fontSize: 8
     },
     switchContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginTop: -12,
-    },
+        flexDirection: "row",
+        alignItems: "center"
+    }
 });

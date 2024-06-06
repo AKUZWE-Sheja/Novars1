@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
+import useGreeting from '../hooks/useGreeting'; // Import the custom hook
 
 import {
   StyledContainer,
@@ -18,6 +19,8 @@ import COLORS from 'constants/colors';
 import ScheduleTable from 'components/AgroTable';
 
 const Dashboard: FC = (): JSX.Element => {
+  const { greeting } = useGreeting(); 
+
   return (
     <StyledContainer>
       <Header>
@@ -36,7 +39,7 @@ const Dashboard: FC = (): JSX.Element => {
       <InnerContainer>
         <View style={styles.greetingContainer}>
           <View>
-            <Text style={styles.greetingText}>Good Morning Smith,</Text>
+            <Text style={styles.greetingText}>{greeting}</Text>
             <View style={styles.temperatureContainer}>
               <SalutePic resizeMode="cover" source={require('../assets/morning.png')} />
               <View style={styles.temperatureTextContainer}>

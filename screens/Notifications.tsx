@@ -1,177 +1,196 @@
-import React, { FC } from 'react';
-import { View, Text, StyleSheet, Image, KeyboardAvoidingView } from 'react-native';
+import React, { FC, useState } from 'react';
+import { View, Text, StyleSheet, Modal, ScrollView } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { MaterialIcons } from '@expo/vector-icons';
+import Button from 'components/Buttons';
 
 import {
-    StyledContainer,
-    InnerContainer,
-    Header,
-    PagePic,
-    InHeadPart,
-    UserDeets,
-    UserEmail,
-    UserName,
-    LogoName
+  StyledContainer,
+  InnerContainer,
+  Header,
+  PagePic,
+  InHeadPart,
+  UserDeets,
+  UserEmail,
+  UserName,
+  LogoName
 } from '../components/styles';
+import COLORS from 'constants/colors';
+
+interface Notification {
+  message: string;
+  dateTime: string;
+  time: string;
+}
 
 const Notifications: FC = (): JSX.Element => {
+  const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+
+  const notifications: Notification[] = [
+    { message: 'Low level of soil moisture', dateTime: '2024-06-01T07:30:00', time: '7:30 AM' },
+    { message: 'Irrigation successfully done', dateTime: '2024-06-02T08:30:00', time: '8:30 AM' },
+    { message: 'Tank is nearly full', dateTime: '2024-06-03T06:10:00', time: '6:10 AM' },
+    { message: 'Warm Breeze in atmosphere', dateTime: '2024-06-04T10:30:00', time: '10:30 AM' },
+    { message: 'Ph level is high', dateTime: '2024-06-05T06:30:00', time: '6:30 AM' },
+    { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' }
+  ];
+
+  const handleNotificationPress = (notification: Notification) => {
+    setSelectedNotification(notification);
+  };
+
+  const closeModal = () => {
+    setSelectedNotification(null);
+  };
+
+  const getCircleAndIcon = (message: string): { color: string, iconName: string } => {
+    if (message.toLowerCase().includes('low')) {
+      return { color: '#B90E0A', iconName: 'trending-down' }; 
+    } else if (message.toLowerCase().includes('high')) {
+      return { color: '#EC9706', iconName: 'trending-up' }; 
+    } else if (message.toLowerCase().includes('success')) {
+      return { color: '#028A0F', iconName: 'check-circle' }; 
+    }
+    return { color: '#000000', iconName: 'info' }; 
+  };
+
   return (
-    <StyledContainer>
+    <GestureHandlerRootView>
+      <StyledContainer>
         <Header>
-        <InHeadPart>
+          <InHeadPart>
             <PagePic resizeMode="cover" source={require('../assets/logo.png')} />
             <LogoName>Novars</LogoName>
-        </InHeadPart>
-        <InHeadPart>
+          </InHeadPart>
+          <InHeadPart>
             <PagePic resizeMode="cover" source={require('../assets/profile.jpg')} />
             <UserDeets>
-                <UserName>John Smith Doe</UserName>
-                <UserEmail style={{ fontSize: 10 }}>Userunlknow@gmail.com</UserEmail>
+              <UserName>John Smith Doe</UserName>
+              <UserEmail style={{ fontSize: 10 }}>Userunlknow@gmail.com</UserEmail>
             </UserDeets>
-        </InHeadPart>
+          </InHeadPart>
         </Header>
-        <InnerContainer>
-          <View style={styles.notificationBox}>
-            <Text style={styles.header}>Notifications</Text>
-            <View style={styles.headerActions}>
-              <Text style={styles.viewAll}>View All</Text>
-              <Text style={styles.archive}>Archive</Text>
-            </View>
-            <View style={styles.line} />
-
-            {/* Notifications */}
-            <View style={styles.notification}>
-              <View style={styles.iconRed}></View>
-              <Text style={styles.notificationText}>Low level of soil moisture</Text>
-              <Text style={styles.notificationTime}>7:30 AM</Text>
+        <ScrollView>
+          <InnerContainer>
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10 }} >
+              <Text style={{ fontSize: 24, fontWeight: "bold" }}>Notifications</Text>
             </View>
 
-            <View style={styles.notification}>
-              <View style={styles.iconBlue}></View>
-              <Text style={styles.notificationText}>Irrigation successfully done</Text>
-              <Text style={styles.notificationTime}>8:30 AM</Text>
+            <View style={styles.innerContainer}>
+              <View style={styles.headerActions}>
+                <TouchableOpacity>
+                  <Text style={[styles.actionText, { fontWeight: "bold"}]}>View All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity>
+                  <Text style={styles.actionText}>Archive</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.line} />
+
+              {notifications.map((notification, index) => {
+                const { color, iconName } = getCircleAndIcon(notification.message);
+                return (
+                  <TouchableOpacity key={index} onPress={() => handleNotificationPress(notification)}>
+                    <View style={styles.notification}>
+                      <View style={[styles.icon, { backgroundColor: color }]}>
+                        <MaterialIcons name={iconName as "light" | "trending-down" | "trending-up" | "check-circle" | "info"} size={24} color="white" />
+                      </View>
+
+                      <Text style={styles.notificationText}>{notification.message}</Text>
+                      <Text style={styles.notificationTime}>{notification.time}</Text>
+                    </View>
+                  </TouchableOpacity>
+                );
+              })}
             </View>
 
-            <View style={styles.notification}>
-              <View style={styles.iconOrange}></View>
-              <Text style={styles.notificationText}>Tank is nearly full</Text>
-              <Text style={styles.notificationTime}>6:10 AM</Text>
-            </View>
-
-            <View style={styles.notification}>
-              <View style={styles.iconOrange}></View>
-              <Text style={styles.notificationText}>Warm Breeze in atmosphere</Text>
-              <Text style={styles.notificationTime}>10:30 AM</Text>
-            </View>
-
-            <View style={styles.notification}>
-              <View style={styles.iconPurple}></View>
-              <Text style={styles.notificationText}>Ph level is high</Text>
-              <Text style={styles.notificationTime}>6:30 AM</Text>
-            </View>
-
-            <View style={styles.notification}>
-              <View style={styles.iconPurple}></View>
-              <Text style={styles.notificationText}>It’s a rainy day</Text>
-              <Text style={styles.notificationTime}>4:30 AM</Text>
-            </View>
-
-            {/* Additional Notifications */}
-            <View style={styles.notification}>
-              <View style={styles.iconBlue}></View>
-              <Text style={styles.notificationText}>Sensor battery low</Text>
-              <Text style={styles.notificationTime}>11:00 AM</Text>
-            </View>
-
-        </View>
-        </InnerContainer>
-    </StyledContainer>
+            <Modal visible={!!selectedNotification} animationType="fade" transparent={true}>
+              <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}>
+                  {selectedNotification && (
+                    <View>
+                      <Text style={styles.modalMessage}>{selectedNotification.message}</Text>
+                      <Text style={styles.modalDateTime}>{selectedNotification.dateTime} - {selectedNotification.time}</Text>
+                      <Button title="Close" onPress={closeModal} />
+                    </View>
+                  )}
+                </View>
+              </View>
+            </Modal>
+          </InnerContainer>
+        </ScrollView>
+      </StyledContainer>
+    </GestureHandlerRootView>
   );
-};
+}
 
 const styles = StyleSheet.create({
-  notificationBox: {
-    width: 384,
-    height: 'auto',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 10,
-    padding: 20,
-    position: 'absolute',
-    // Shadow for iOS
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.14,
-    shadowRadius: 10,
-    // Elevation for Android
-    elevation: 10,
-  },
-  header: {
-    fontWeight: '500',
-    fontSize: 20,
-    color: '#000000',
-    textTransform: 'capitalize',
+  innerContainer: {
+    alignItems: 'flex-start',
+    justifyContent: 'flex-start',
+    paddingBottom: "10%"
   },
   headerActions: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 20,
+    marginTop: 16,
   },
-  viewAll: {
-    fontWeight: '500',
+  actionText: {
     fontSize: 16,
-    color: '#000000',
     textTransform: 'capitalize',
-  },
-  archive: {
-    fontWeight: '500',
-    fontSize: 16,
-    color: 'rgba(0, 0, 0, 0.56)',
-    textTransform: 'capitalize',
+    paddingRight: 20
   },
   line: {
     borderBottomWidth: 1,
     borderBottomColor: '#000000',
-    marginVertical: 20,
+    marginVertical: 10,
+    height: 4
   },
   notification: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 20,
   },
-  iconRed: {
+  icon: {
     width: 38,
     height: 38,
-    backgroundColor: '#ED1616',
     borderRadius: 19,
-  },
-  iconBlue: {
-    width: 38,
-    height: 38,
-    backgroundColor: '#16ADED',
-    borderRadius: 19,
-  },
-  iconOrange: {
-    width: 38,
-    height: 38,
-    backgroundColor: '#F0851D',
-    borderRadius: 19,
-  },
-  iconPurple: {
-    width: 38,
-    height: 38,
-    backgroundColor: '#512A57',
-    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 10,
   },
   notificationText: {
-    marginLeft: 10,
     fontWeight: '400',
-    fontSize: 16,
+    fontSize: 14,
     color: '#000000',
   },
   notificationTime: {
-    marginLeft: 10,
-    fontWeight: '400',
-    fontSize: 16,
+    fontSize: 14,
     color: 'rgba(0, 0, 0, 0.25)',
+    marginLeft: "4%"
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalMessage: {
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  modalDateTime: {
+    color: COLORS.grey,
+    fontSize: 14,
+    marginBottom: 20,
   },
 });
 

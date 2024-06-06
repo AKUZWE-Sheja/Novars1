@@ -6,11 +6,11 @@ import { LineChart } from 'react-native-chart-kit';
 const screenWidth = Dimensions.get('window').width;
 
 const GridDemo: React.FC = () => {
-  const temperatureData = [27, 27, 26, 27, 27, 26, 27, 27];
+  const temperatureData = [270, 270, 260, 270, 270, 260, 270, 270];
   const humidityData = [950, 850, 750, 600, 540, 430, 420, 420];
 
   // Find the maximum value in humidityData to use for inversion
-  const maxHumidity = Math.max(...humidityData);
+  const maxHumidity = 1420;
 
   // Invert the humidity data
   const invertedHumidityData = humidityData.map(value => maxHumidity - value);
@@ -42,7 +42,7 @@ const GridDemo: React.FC = () => {
     propsForBackgroundLines: {
       stroke: "transparent"
     },
-    backgroundColor: COLORS.white, // Ensure background color is white
+    backgroundColor: COLORS.white, 
   };
 
   return (
@@ -51,7 +51,7 @@ const GridDemo: React.FC = () => {
       <View style={styles.legendContainer}>
         <View style={styles.legendItem}>
           <View style={[styles.legendColor, { backgroundColor: COLORS.red }]} />
-          <Text style={styles.legendText}>Temperature (°C)</Text>
+          <Text style={styles.legendText}>Temperature (10*°C)</Text>
         </View>
         <View style={styles.legendItem}>
           <View style={[styles.legendColor, { backgroundColor: COLORS.blue }]} />

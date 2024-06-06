@@ -90,7 +90,7 @@ function TabNavigator() {
                 backgroundColor: focused ? 'rgba(31, 97, 21, 0.8)' : 'transparent',
               }}
             >
-              <Ionicons name="notifications" size={24} color={COLORS.black} />
+              <Ionicons name="notifications" size={24} color={focused ? COLORS.white : COLORS.black} />
             </View>
           ),
         }}
@@ -130,7 +130,7 @@ function TabNavigator() {
                 backgroundColor: focused ? 'rgba(31, 97, 21, 0.8)' : 'transparent',
               }}
             >
-              <Feather name="user" size={24} color={COLORS.black} />
+              <Feather name="user" size={24} color={focused ? COLORS.white : COLORS.black} />
             </View>
           ),
         }}

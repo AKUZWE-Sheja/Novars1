@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Register, CheckEmail, Login, Forgot, Reset, Welcome, Security, WhiteWelcome, Automate, Notify, Irrigate, Settings, Dashboard, Notifications, Profile } from 'screens/index';
+import { Register, CheckEmail, Login, Forgot, Reset, Welcome, Security, WhiteWelcome, Automate, Notify, Irrigate, Settings, Dashboard, Notifications, Profile, Languages, Policies } from 'screens/index';
 import { Entypo } from '@expo/vector-icons';  
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -36,7 +36,7 @@ function TabNavigator() {
   return (
     <Tab.Navigator screenOptions={screenOptions}>
       <Tab.Screen
-        name="Irrigatee"
+        name="Irrigate"
         component={Irrigate}
         options={{
           tabBarIcon: ({ focused }) => (
@@ -153,9 +153,12 @@ export default function App() {
         <Stack.Screen name="Automate" component={Automate} />
         <Stack.Screen name="Notify" component={Notify} />
         <Stack.Screen name="WhiteWelcome" component={WhiteWelcome} />
+        <Stack.Screen name="Languages" component={Languages} />
+        <Stack.Screen name="Policies" component={Policies} />
         <Stack.Screen name="Irrigate" component={TabNavigator} initialParams={{ screen: "Irrigate" }} />
         <Stack.Screen name="Dashboard" component={TabNavigator} initialParams={{ screen: "Dash" }} />
         <Stack.Screen name="Settings" component={TabNavigator} initialParams={{ screen: "Setting" }} />
+        <Stack.Screen name="Profile" component={TabNavigator} initialParams={{ screen: "Profilee" }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -169,6 +172,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-
-

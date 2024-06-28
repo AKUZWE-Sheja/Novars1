@@ -33,7 +33,13 @@ const Notifications: FC = (): JSX.Element => {
     { message: 'Tank is nearly full', dateTime: '2024-06-03T06:10:00', time: '6:10 AM' },
     { message: 'Warm Breeze in atmosphere', dateTime: '2024-06-04T10:30:00', time: '10:30 AM' },
     { message: 'Ph level is high', dateTime: '2024-06-05T06:30:00', time: '6:30 AM' },
-    { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' }
+    { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' },
+    { message: 'Low level of soil moisture', dateTime: '2024-06-01T07:30:00', time: '7:30 AM' },
+    { message: 'Irrigation successfully done', dateTime: '2024-06-02T08:30:00', time: '8:30 AM' },
+    { message: 'Tank is nearly full', dateTime: '2024-06-03T06:10:00', time: '6:10 AM' },
+    { message: 'Warm Breeze in atmosphere', dateTime: '2024-06-04T10:30:00', time: '10:30 AM' },
+    { message: 'Ph level is high', dateTime: '2024-06-05T06:30:00', time: '6:30 AM' },
+    { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' },
   ];
 
   const handleNotificationPress = (notification: Notification) => {
@@ -58,22 +64,9 @@ const Notifications: FC = (): JSX.Element => {
   return (
     <GestureHandlerRootView>
       <StyledContainer>
-        <Header>
-          <InHeadPart>
-            <PagePic resizeMode="cover" source={require('../assets/logo.png')} />
-            <LogoName>Novars</LogoName>
-          </InHeadPart>
-          <InHeadPart>
-            <PagePic resizeMode="cover" source={require('../assets/profile.jpg')} />
-            <UserDeets>
-              <UserName>John Smith Doe</UserName>
-              <UserEmail style={{ fontSize: 10 }}>Userunlknow@gmail.com</UserEmail>
-            </UserDeets>
-          </InHeadPart>
-        </Header>
         <ScrollView>
           <InnerContainer>
-            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10 }} >
+            <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, marginTop: "10%"}} >
               <Text style={{ fontSize: 24, fontWeight: "bold" }}>Notifications</Text>
             </View>
 
@@ -168,7 +161,7 @@ const styles = StyleSheet.create({
   notificationTime: {
     fontSize: 14,
     color: 'rgba(0, 0, 0, 0.25)',
-    marginLeft: "4%"
+    marginLeft: "6%"
   },
   modalOverlay: {
     flex: 1,

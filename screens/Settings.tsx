@@ -15,6 +15,7 @@ import {
   LogoName,
   PageTitle,
 } from '../components/styles';
+import COLORS from 'constants/colors';
 
 const Settings: FC = (): JSX.Element => {
   const [generalNotificationsEnabled, setGeneralNotificationsEnabled] = useState(false);
@@ -71,21 +72,8 @@ const Settings: FC = (): JSX.Element => {
   return (
     <ScrollView>
     <StyledContainer>
-      <Header>
-        <InHeadPart>
-          <PagePic resizeMode="cover" source={require('../assets/logo.png')} />
-          <LogoName>Novars</LogoName>
-        </InHeadPart>
-        <InHeadPart>
-          <PagePic resizeMode="cover" source={require('../assets/profile.jpg')} />
-          <UserDeets>
-            <UserName>John Smith Doe</UserName>
-            <UserEmail style={{ fontSize: 10 }}>Userunlknow@gmail.com</UserEmail>
-          </UserDeets>
-        </InHeadPart>
-      </Header>
       <InnerContainer>
-        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: -14, paddingBottom: 10 }}>
+        <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: "10%", marginBottom: "5%", paddingBottom: 10 }}>
           <AntDesign name="arrowleft" size={20} color="black" style={{ marginLeft: -130, paddingRight: 100 }} />
           <Text style={{fontSize: 24, fontWeight: "bold"}}>Settings</Text>
         </View>
@@ -129,6 +117,8 @@ const Settings: FC = (): JSX.Element => {
               circleColorOff='#FFFFFF'
             />
           </View>
+
+          <View style={styles.line}></View>
 
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: "-5%", marginTop: "10%" }}>System & services update</Text>
           <View style={styles.switchRow}>
@@ -190,6 +180,8 @@ const Settings: FC = (): JSX.Element => {
             />
           </View>
 
+          <View style={styles.line}></View>
+
           <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: "-5%", marginTop: "10%" }}>Others</Text>
           <View style={styles.switchRow}>
             <Text>New Service Available</Text>
@@ -241,6 +233,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginTop: 10,
+  },
+  line: {
+    borderBottomColor: COLORS.grey,
+    width: "100%",
+    borderBottomWidth: 0.3,
+    marginTop: 20,
+    marginBottom: -10
   }
   
 });

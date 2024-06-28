@@ -2,7 +2,11 @@ import React, { FC } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, TouchableOpacity } from 'react-native';
 import { AntDesign, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
-const Profile: FC = (): JSX.Element => {
+interface ProfileProps {
+  navigation: any;
+}
+
+const Profile: FC<ProfileProps> = ({ navigation }): JSX.Element => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.background}></View>
@@ -18,7 +22,7 @@ const Profile: FC = (): JSX.Element => {
             <Ionicons name="notifications-outline" size={20} color="black" />
             <Text style={styles.optionText}>Notifications</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.option}>
+          <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("Languages")}>
             <Ionicons name="language" size={20} color="black" />
             <Text style={styles.optionText}>Language</Text>
           </TouchableOpacity>
@@ -42,7 +46,7 @@ const Profile: FC = (): JSX.Element => {
             <MaterialCommunityIcons name="contacts-outline" size={20} color="black" />
             <Text style={styles.optionText}>Contact us</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.option}>
+          <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("Policies")}>
             <MaterialIcons name="lock-outline" size={20} color="black" />
             <Text style={styles.optionText}>Private Policy</Text>
           </TouchableOpacity>

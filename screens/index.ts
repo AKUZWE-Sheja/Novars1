@@ -13,6 +13,8 @@ import Dashboard from "./Dashboard";
 import Settings from "./Settings";
 import Notifications from "./Notifications";
 import Profile from "./Profile";
+import Languages from "./Language";
+import Policies from "./Profile";
 
 export interface LoginProps {
   navigation: any;
@@ -66,6 +68,14 @@ export interface DashboardProps {
   navigation: any;
 }
 
+export interface LanguagesProps {
+  navigation: any;
+}
+
+export interface PoliciesProps {
+  navigation: any;
+}
+
 
 export {
   Login,
@@ -82,5 +92,7 @@ export {
   Settings,
   Dashboard,
   Notifications,
-  Profile
+  Profile,
+  Languages,
+  Policies
 };

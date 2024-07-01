@@ -19,10 +19,11 @@ import COLORS from 'constants/colors';
 import ScheduleTable from 'components/AgroTable';
 
 const Dashboard: FC = (): JSX.Element => {
-  const { greeting } = useGreeting(); 
+  const { greeting } = useGreeting();  // Use the custom hook for the greeting message
 
   return (
     <StyledContainer>
+      {/* Header section with logos and user details */}
       <Header>
         <InHeadPart>
           <PagePic resizeMode="cover" source={require('../assets/logo.png')} />
@@ -36,7 +37,9 @@ const Dashboard: FC = (): JSX.Element => {
           </UserDeets>
         </InHeadPart>
       </Header>
+      
       <InnerContainer>
+        {/* Greeting and temperature section */}
         <View style={styles.greetingContainer}>
           <View>
             <Text style={styles.greetingText}>{greeting}</Text>
@@ -50,6 +53,8 @@ const Dashboard: FC = (): JSX.Element => {
               </View>
             </View>
           </View>
+
+          {/* Agronomists section */}
           <View style={styles.agronomistsContainer}>
             <View style={styles.agronomistsHeader}>
               <Text style={styles.agronomistsTitle}>Your Agronomists</Text>
@@ -79,20 +84,21 @@ const Dashboard: FC = (): JSX.Element => {
           </View>
         </View>
         
-        <View style={{flexDirection: "row"}}>
-          <View style={{backgroundColor: COLORS.white, width: "100%", height: 160, marginRight: '2%', flexDirection: "row"}}>
+        {/* Farm status section */}
+        <View style={{ flexDirection: "row" }}>
+          <View style={{ backgroundColor: COLORS.white, width: "100%", height: 160, marginRight: '2%', flexDirection: "row" }}>
             <View style={{ alignItems: 'center', padding: 6, marginBottom: 14 }}>
-                <Text style={{fontWeight: "bold"}}>Current Status Of My Farm</Text>
-                <Image resizeMode="contain" source={require('../assets/farm.png')} style={styles.farmPic} />
+              <Text style={{ fontWeight: "bold" }}>Current Status Of My Farm</Text>
+              <Image resizeMode="contain" source={require('../assets/farm.png')} style={styles.farmPic} />
             </View>
             
             <View style={{ alignItems: 'center', padding: 6 }}>
-
-              <View style={{flexDirection: "row", marginLeft: "24%"}}>
-                <Text style={{fontWeight: "bold", color: COLORS.grey}}>Weekly </Text>
+              <View style={{ flexDirection: "row", marginLeft: "24%" }}>
+                <Text style={{ fontWeight: "bold", color: COLORS.grey }}>Weekly </Text>
                 <AntDesign name="down" size={18} color="grey" />
               </View>
 
+              {/* Legend for farm status */}
               <View style={styles.legendContainer}>
                 <View style={styles.legendItem}>
                   <View style={[styles.legendCircle, { backgroundColor: COLORS.red }]} />
@@ -111,6 +117,7 @@ const Dashboard: FC = (): JSX.Element => {
           </View>
         </View>
 
+        {/* Schedule table component */}
         <ScheduleTable />
       </InnerContainer>
     </StyledContainer>

@@ -17,12 +17,14 @@ import {
     Visuary,
     Colors
 } from '../components/styles';
-import GridDemo from 'components/IrrigationGraph';
-import useGreeting from 'hooks/useGreeting';
+
+import GridDemo from 'components/IrrigationGraph'; 
+import useGreeting from 'hooks/useGreeting'; 
 
 const Irrigate: FC = (): JSX.Element => {
+   
     const [isSystemOn, setIsSystemOn] = useState(false);
-    const {currentTime, greeting} = useGreeting();
+    const {currentTime, greeting} = useGreeting(); // Destructuring hook values
 
     const toggleSystem = () => {
         setIsSystemOn((prev) => !prev);
@@ -31,11 +33,14 @@ const Irrigate: FC = (): JSX.Element => {
     return (
         <ScrollView>
             <StyledContainer>
+                {/* Header section */}
                 <Header>
+                    {/* Left part of the header */}
                     <InHeadPart>
                         <PagePic resizeMode="cover" source={require('../assets/logo.png')} />
                         <LogoName>Novars</LogoName>
                     </InHeadPart>
+                    {/* Right part of the header */}
                     <InHeadPart>
                         <PagePic resizeMode="cover" source={require('../assets/profile.jpg')} />
                         <UserDeets>
@@ -44,7 +49,10 @@ const Irrigate: FC = (): JSX.Element => {
                         </UserDeets>
                     </InHeadPart>
                 </Header>
+
+                {/* Main content container */}
                 <InnerContainer>
+                    {/* Greeting and weather section */}
                     <View style={styles.greetingContainer}>
                         <View>
                             <Text style={styles.greetingText}>{greeting}</Text>
@@ -58,6 +66,7 @@ const Irrigate: FC = (): JSX.Element => {
                                 </View>
                             </View>
                         </View>
+                        {/* Location and system status section */}
                         <View style={styles.locationContainer}>
                             <View style={styles.locationRow}>
                                 <FontAwesome6 name="location-dot" size={22} color="black" />
@@ -75,8 +84,11 @@ const Irrigate: FC = (): JSX.Element => {
                         </View>
                     </View>
 
+                    {/* Left and right containers for irrigation details */}
                     <View style={{ flexDirection: "row" }}>
+                        {/* Left container */}
                         <View style={styles.leftContainer}>
+                            {/* Water level and usage details */}
                             <View style={{ alignItems: 'center', padding: 6, marginBottom: 14 }}>
                                 <Visuary resizeMode="cover" source={require('../assets/meter.png')} />
                                 <View style={styles.textContainer}>
@@ -85,6 +97,7 @@ const Irrigate: FC = (): JSX.Element => {
                                     <Text style={styles.textUsed}>-700ml</Text>
                                 </View>
                             </View>
+                            {/* Water level warning */}
                             <View>
                                 <Image resizeMode="cover" source={require('../assets/lake.png')} style={styles.lake} />
                                 <View style={styles.warningContainer}>
@@ -94,7 +107,9 @@ const Irrigate: FC = (): JSX.Element => {
                             </View>
                         </View>
 
+                        {/* Right container */}
                         <View style={styles.rightContainer}>
+                            {/* Automatic irrigation header */}
                             <View style={styles.automaticIrrigationHeader}>
                                 <View style={{ margin: '1%' }}>
                                     <Image resizeMode="contain" source={require('../assets/cntrl.png')} style={styles.cnrtl} />
@@ -104,6 +119,7 @@ const Irrigate: FC = (): JSX.Element => {
                                     <Text style={styles.automaticIrrigationSubtitle}>Real Time Control Of Your Farm</Text>
                                 </View>
                             </View>
+                            {/* System toggle switch */}
                             <View style={{ alignItems: "center" }}>
                                 <Image resizeMode="contain" source={require('../assets/irrig_system.png')} style={styles.system} />
                                 <View style={styles.switchContainer}>
@@ -119,6 +135,7 @@ const Irrigate: FC = (): JSX.Element => {
                         </View>
                     </View>
 
+                    {/* Component displaying irrigation graph */}
                     <GridDemo />
                 </InnerContainer>
             </StyledContainer>
@@ -128,6 +145,7 @@ const Irrigate: FC = (): JSX.Element => {
 
 export default Irrigate;
 
+// Styles for various components
 const styles = StyleSheet.create({
     greetingContainer: {
         flexDirection: "row",

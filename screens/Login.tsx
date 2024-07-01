@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert, Pressable } from 'react-native';
-import COLORS from '../constants/colors';
 import { Ionicons } from "@expo/vector-icons";
-import Button from 'components/Buttons';
-import Register from './Register';
+import COLORS from '../constants/colors';
+import Button from 'components/Buttons'; 
+import Register from './Register'; 
 
 import {
   StyledContainer,
@@ -16,21 +16,19 @@ import {
   StyledInputLabel,
   StyledTextInput,
   LoginPic
-} from '../components/styles';
+} from '../components/styles'; // Custom styles and components imports
 
 interface LoginProps {
   navigation: any;
 }
-
-
 
 const Login: React.FC<LoginProps> = ({ navigation }) => {
   const [isPasswordShown, setIsPasswordShown] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
+  // Function to handle sign-in process
   const signIn = (): void => {
-
     if (email.trim() === '') {
       Alert.alert('Error', 'Please enter your email');
       return;
@@ -46,7 +44,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
       return;
     }
   
-    navigation.navigate('CheckEmail');
+    navigation.navigate('CheckEmail'); // Navigate to CheckEmail screen after successful validation
   };
 
   return (
@@ -56,29 +54,26 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
         <LogoName>Novars</LogoName>
       </HeadPart>
       <InnerContainer>
+        {/* Welcome message */}
         <View style={{marginBottom: 16}}>
-                <PageTitle>Hii there</PageTitle>
-                <Text style={{color: COLORS.grey, fontSize: 16}}>Welcome back,</Text>
+          <PageTitle>Hii there</PageTitle>
+          <Text style={{color: COLORS.grey, fontSize: 16}}>Welcome back,</Text>
         </View>    
 
+        {/* Social login buttons */}
         <View style={{flexDirection: "row"}}>
-        <Pressable style={styles.button}>
-          <LoginPic 
-          resizeMode="cover" 
-          source={require('../assets/facebook.png')} 
-          />
-          <Text style={{fontSize: 18}}>Facebook</Text>
-        </Pressable>
+          <Pressable style={styles.button}>
+            <LoginPic resizeMode="cover" source={require('../assets/facebook.png')} />
+            <Text style={{fontSize: 18}}>Facebook</Text>
+          </Pressable>
 
-        <Pressable style={styles.button}>
-          <LoginPic 
-          // resizeMode="cover" 
-          source={require('../assets/google.png')} 
-          />
-          <Text style={{fontSize: 18}}>Google</Text>
-        </Pressable>    
+          <Pressable style={styles.button}>
+            <LoginPic source={require('../assets/google.png')} />
+            <Text style={{fontSize: 18}}>Google</Text>
+          </Pressable>    
         </View>
 
+        {/* Email and password input fields */}
         <StyledFormArea>
           <StyledInputLabel>Email</StyledInputLabel>
           <StyledTextInput
@@ -96,6 +91,7 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
               onChangeText={setPassword}
               secureTextEntry={!isPasswordShown}
             />
+            {/* Eye icon to toggle password visibility */}
             <TouchableOpacity
               onPress={() => setIsPasswordShown(!isPasswordShown)}
               style={styles.eyeIcon}
@@ -105,36 +101,36 @@ const Login: React.FC<LoginProps> = ({ navigation }) => {
           </View>
         </StyledFormArea>
         
+        {/* Forgot password link */}
         <TouchableOpacity onPress={() => navigation.navigate("Forgot")}>
-        <Text style={{fontWeight: "bold", fontSize: 12, marginTop: 5, marginLeft: 200}}>forgot password?</Text>
+          <Text style={{fontWeight: "bold", fontSize: 12, marginTop: 5, marginLeft: 200}}>forgot password?</Text>
         </TouchableOpacity>
 
-<Button
-    title="Login"
-    style={{
-        marginTop: 18,
-    }}
-  onPress={signIn}
-/>
+        {/* Login button */}
+        <Button
+          title="Login"
+          style={{
+            marginTop: 18,
+          }}
+          onPress={signIn}
+        />
 
-
-<View style={{ marginVertical: 18, flexDirection: 'row' }}>
-<Text>
-Don't have an account?{' '}
-</Text>
-<TouchableOpacity onPress={() => navigation.navigate("Register")}>
-<Text style={{ fontWeight: "bold", textDecorationLine: "none", color: COLORS.primary, fontSize: 14}}>Register now</Text>
-</TouchableOpacity>
-</View>
+        {/* Navigation to Register screen */}
+        <View style={{ marginVertical: 18, flexDirection: 'row' }}>
+          <Text>Don't have an account?{' '}</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <Text style={{ fontWeight: "bold", textDecorationLine: "none", color: COLORS.primary, fontSize: 14}}>Register now</Text>
+          </TouchableOpacity>
+        </View>
 
       </InnerContainer>
     </StyledContainer>
-
   )
 }
 
 export default Login;
 
+// Styles for specific components
 const styles = StyleSheet.create({
   passwordInputContainer: {
     flexDirection: 'row',
@@ -167,5 +163,4 @@ const styles = StyleSheet.create({
     backgroundColor: "#fbf5f5", 
     borderRadius: 8, 
   },  
-
 });

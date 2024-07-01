@@ -1,42 +1,46 @@
-import COLORS from 'constants/colors';
-import React, { FC, useRef } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground, TouchableOpacity, PanResponder } from 'react-native';
-import Svg, { Rect } from 'react-native-svg';
+import COLORS from 'constants/colors';  // Import color constants
+import React, { FC } from 'react';  // Import React and FC type
+import { View, Text, Image, StyleSheet, ImageBackground, TouchableOpacity } from 'react-native';  // Import React Native components
+import Svg, { Rect } from 'react-native-svg';  // Import Svg components for rendering SVG images
 
-
-const foot = require('../assets/footer.png');
+const foot = require('../assets/footer.png');  // Import footer image
 
 interface AutomateProps {
-  navigation: any;
+  navigation: any;  // Define the props for the Automate component
 } 
-const Automate: FC<AutomateProps> = ({ navigation }) => {
+
+const Automate: FC<AutomateProps> = ({ navigation }) => {  // Define the Automate component
 
   return (
-    <View style={styles.container} >
+    <View style={styles.container}>
+      {/* Header with SVG and SKIP button */}
       <View style={styles.header}>
-        <Svg width={130} height={5} viewBox="0 0 130 5" fill="none"
-         >
+        <Svg width={130} height={5} viewBox="0 0 130 5" fill="none">
           <Rect x="0.5" width="37" height="5" rx={2.5} fill="black" />
           <Rect x="46.5" width="37" height="5" rx={2.5} fill="black" />
           <Rect x="92.5" width="37" height="5" rx={2.5} fill="black" />
         </Svg>
         <TouchableOpacity onPress={() => navigation.navigate("WhiteWelcome")}>
-        <Text>SKIP</Text>
+          <Text>SKIP</Text>
         </TouchableOpacity>
       </View>
-      <View style={{alignItems: 'center', top: 45}}>
-      <TouchableOpacity onPress={() => navigation.navigate("Notify")}>
-        <Image source={require('../assets/automate.png')} style={styles.image} />
-      </TouchableOpacity>  
+
+      {/* Main content with image and navigation */}
+      <View style={{ alignItems: 'center', top: 45 }}>
+        <TouchableOpacity onPress={() => navigation.navigate("Notify")}>
+          <Image source={require('../assets/automate.png')} style={styles.image} />
+        </TouchableOpacity>  
       </View>
+
+      {/* Footer content with background image and info text */}
       <View style={styles.content}>
         <View style={styles.imageBg}>
-          <ImageBackground source={foot} resizeMode="cover" style={styles.footImg}/>
+          <ImageBackground source={foot} resizeMode="cover" style={styles.footImg} />
         </View>
         <View style={styles.info}>
           <Text style={styles.infoText}>Automate</Text>
-          <Text style={{ color: COLORS.white, marginTop: 10}}>
-            Switch through different scenes and ,{'\n'}
+          <Text style={{ color: COLORS.white, marginTop: 10 }}>
+            Switch through different scenes and,{'\n'}
             quick actions for fast management of {'\n'}
             your home.
           </Text>
@@ -46,6 +50,7 @@ const Automate: FC<AutomateProps> = ({ navigation }) => {
   );
 };
 
+// Styles for the component
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -62,7 +67,7 @@ const styles = StyleSheet.create({
     height: 360,
     marginTop: 180
   },
-  footImg:{
+  footImg: {
     width: '100%',
     height: '100%',
   },
@@ -89,4 +94,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Automate;
+export default Automate;  

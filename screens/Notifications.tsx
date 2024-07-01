@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Modal, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { MaterialIcons } from '@expo/vector-icons';
-import Button from 'components/Buttons';
+import Button from 'components/Buttons'; 
 
 import {
   StyledContainer,
@@ -15,9 +15,11 @@ import {
   UserEmail,
   UserName,
   LogoName
-} from '../components/styles';
-import COLORS from 'constants/colors';
+} from '../components/styles'; // Importing custom styles from components
 
+import COLORS from 'constants/colors'; 
+
+// Interface for notification object
 interface Notification {
   message: string;
   dateTime: string;
@@ -27,6 +29,7 @@ interface Notification {
 const Notifications: FC = (): JSX.Element => {
   const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
 
+  // Sample notifications array
   const notifications: Notification[] = [
     { message: 'Low level of soil moisture', dateTime: '2024-06-01T07:30:00', time: '7:30 AM' },
     { message: 'Irrigation successfully done', dateTime: '2024-06-02T08:30:00', time: '8:30 AM' },
@@ -34,6 +37,7 @@ const Notifications: FC = (): JSX.Element => {
     { message: 'Warm Breeze in atmosphere', dateTime: '2024-06-04T10:30:00', time: '10:30 AM' },
     { message: 'Ph level is high', dateTime: '2024-06-05T06:30:00', time: '6:30 AM' },
     { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' },
+    // Adding more sample notifications for demonstration
     { message: 'Low level of soil moisture', dateTime: '2024-06-01T07:30:00', time: '7:30 AM' },
     { message: 'Irrigation successfully done', dateTime: '2024-06-02T08:30:00', time: '8:30 AM' },
     { message: 'Tank is nearly full', dateTime: '2024-06-03T06:10:00', time: '6:10 AM' },
@@ -42,14 +46,17 @@ const Notifications: FC = (): JSX.Element => {
     { message: "It's a rainy day", dateTime: '2024-06-06T04:30:00', time: '4:30 AM' },
   ];
 
+  // Function to handle notification press
   const handleNotificationPress = (notification: Notification) => {
     setSelectedNotification(notification);
   };
 
+  // Function to close the modal
   const closeModal = () => {
     setSelectedNotification(null);
   };
 
+  // Function to determine circle color and icon based on message content
   const getCircleAndIcon = (message: string): { color: string, iconName: string } => {
     if (message.toLowerCase().includes('low')) {
       return { color: '#B90E0A', iconName: 'trending-down' }; 
@@ -66,11 +73,13 @@ const Notifications: FC = (): JSX.Element => {
       <StyledContainer>
         <ScrollView>
           <InnerContainer>
+            {/* Header with title */}
             <View style={{ flexDirection: 'row', alignItems: 'center', paddingBottom: 10, marginTop: "10%"}} >
               <Text style={{ fontSize: 24, fontWeight: "bold" }}>Notifications</Text>
             </View>
 
             <View style={styles.innerContainer}>
+              {/* Header actions */}
               <View style={styles.headerActions}>
                 <TouchableOpacity>
                   <Text style={[styles.actionText, { fontWeight: "bold"}]}>View All</Text>
@@ -80,17 +89,21 @@ const Notifications: FC = (): JSX.Element => {
                 </TouchableOpacity>
               </View>
 
+              {/* Separator line */}
               <View style={styles.line} />
 
+              {/* Mapping over notifications */}
               {notifications.map((notification, index) => {
                 const { color, iconName } = getCircleAndIcon(notification.message);
                 return (
                   <TouchableOpacity key={index} onPress={() => handleNotificationPress(notification)}>
                     <View style={styles.notification}>
+                      {/* Notification icon */}
                       <View style={[styles.icon, { backgroundColor: color }]}>
                         <MaterialIcons name={iconName as "light" | "trending-down" | "trending-up" | "check-circle" | "info"} size={24} color="white" />
                       </View>
 
+                      {/* Notification message and time */}
                       <Text style={styles.notificationText}>{notification.message}</Text>
                       <Text style={styles.notificationTime}>{notification.time}</Text>
                     </View>
@@ -99,6 +112,7 @@ const Notifications: FC = (): JSX.Element => {
               })}
             </View>
 
+            {/* Modal for displaying detailed notification */}
             <Modal visible={!!selectedNotification} animationType="fade" transparent={true}>
               <View style={styles.modalOverlay}>
                 <View style={styles.modalContent}>
@@ -119,6 +133,7 @@ const Notifications: FC = (): JSX.Element => {
   );
 }
 
+// Styles for the component
 const styles = StyleSheet.create({
   innerContainer: {
     alignItems: 'flex-start',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, StyleSheet, TouchableOpacity, View, Alert, KeyboardAvoidingView } from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, View, Alert, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Button from 'components/Buttons';
 import COLORS from '../constants/colors';
@@ -28,7 +28,6 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   const [password, setPassword] = useState<string>('');
 
   const signUp = (): void => {
-    
     if (!fullName.trim()) {
       Alert.alert('Error', 'Please enter your full name');
       return;
@@ -58,72 +57,81 @@ const Register: React.FC<RegisterProps> = ({ navigation }) => {
   };
 
   const validatePhoneNumber = (phoneNumber: string): boolean => {
-    const phoneNumberPattern: RegExp = /^\d{10}$/; 
+    const phoneNumberPattern: RegExp = /^\d{10}$/;
     return phoneNumberPattern.test(phoneNumber);
   };
 
   return (
     <StyledContainer>
-      <HeadPart>
-        <PageLogo resizeMode="cover" source={require('../assets/logo.png')} />
-        <LogoName>Novars</LogoName>
-      </HeadPart>
-      <InnerContainer>
-        <PageTitle>Register</PageTitle>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0} // Adjust this value if needed
+      >
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+          <HeadPart>
+            <PageLogo resizeMode="cover" source={require('../assets/logo.png')} />
+            <LogoName>Novars</LogoName>
+          </HeadPart>
+          <InnerContainer>
+            <PageTitle>Register</PageTitle>
 
-        <StyledFormArea>
-          <StyledInputLabel>Full Name</StyledInputLabel>
-          <View style={styles.InputContainer}>
-          <StyledTextInput onChangeText={setFullName} />
-          </View>
-        </StyledFormArea>
-        <StyledFormArea>
-          <StyledInputLabel>Email</StyledInputLabel>
-          <View style={styles.InputContainer}>
-          <StyledTextInput onChangeText={setEmail} />
-          </View>
-        </StyledFormArea>
-        <StyledFormArea>
-          <StyledInputLabel>Phone Number</StyledInputLabel>
-          <View style={styles.InputContainer}>
-          <StyledTextInput onChangeText={setPhoneNumber} />
-          </View>
-        </StyledFormArea>
-        <StyledFormArea>
-          <StyledInputLabel>Password</StyledInputLabel>
-          <View style={styles.InputContainer}>
-            <StyledTextInput
-              onChangeText={setPassword}
-              secureTextEntry={!isPasswordShown}
+            <StyledFormArea>
+              <StyledInputLabel>Full Name</StyledInputLabel>
+              <View style={styles.InputContainer}>
+                <StyledTextInput onChangeText={setFullName} />
+              </View>
+            </StyledFormArea>
+
+            <StyledFormArea>
+              <StyledInputLabel>Email</StyledInputLabel>
+              <View style={styles.InputContainer}>
+                <StyledTextInput onChangeText={setEmail} />
+              </View>
+            </StyledFormArea>
+
+            <StyledFormArea>
+              <StyledInputLabel>Phone Number</StyledInputLabel>
+              <View style={styles.InputContainer}>
+                <StyledTextInput onChangeText={setPhoneNumber} />
+              </View>
+            </StyledFormArea>
+
+            <StyledFormArea>
+              <StyledInputLabel>Password</StyledInputLabel>
+              <View style={styles.InputContainer}>
+                <StyledTextInput
+                  onChangeText={setPassword}
+                  secureTextEntry={!isPasswordShown}
+                />
+                <TouchableOpacity
+                  onPress={() => setIsPasswordShown(!isPasswordShown)}
+                  style={styles.eyeIcon}
+                >
+                  <Ionicons name={isPasswordShown ? "eye" : "eye-off"} size={24} color={COLORS.black} />
+                </TouchableOpacity>
+              </View>
+            </StyledFormArea>
+
+            <Button
+              title="Register"
+              style={{ marginVertical: 8 }}
+              onPress={signUp}
             />
-            <TouchableOpacity
-              onPress={() => setIsPasswordShown(!isPasswordShown)}
-              style={styles.eyeIcon}
-            >
-              <Ionicons name={isPasswordShown ? "eye" : "eye-off"} size={24} color={COLORS.black} />
-            </TouchableOpacity>
-          </View>
-        </StyledFormArea>
 
-        <Button
-          title="Register"
-          style={{
-            marginVertical: 8,
-          }}
-          onPress={signUp}
-        />
-
-        <View style={{ marginVertical: 18 }}>
-          <Text>
-            By registering you agree to <Text style={{ fontWeight: 'bold' }}>Terms & conditions</Text>
-          </Text>
-          <View style={{ alignItems: 'center' }}>
-            <Text>
-              and <Text style={{ fontWeight: 'bold' }}>privacy Policy</Text> of Novars
-            </Text>
-          </View>
-        </View>
-      </InnerContainer>
+            <View style={{ marginVertical: 18 }}>
+              <Text>
+                By registering you agree to <Text style={{ fontWeight: 'bold' }}>Terms & conditions</Text>
+              </Text>
+              <View style={{ alignItems: 'center' }}>
+                <Text>
+                  and <Text style={{ fontWeight: 'bold' }}>privacy Policy</Text> of Novars
+                </Text>
+              </View>
+            </View>
+          </InnerContainer>
+        </ScrollView>
+      </KeyboardAvoidingView>
     </StyledContainer>
   );
 }
@@ -144,4 +152,3 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
 });
-

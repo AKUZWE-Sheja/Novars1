@@ -24,7 +24,8 @@ const Dashboard: FC = (): JSX.Element => {
   const { greeting } = useGreeting();  // Use the custom hook for the greeting message
 
   const [temperature, setTemperature] = useState<number | null>(null);
-  
+ 
+  // using openmeteo -it is non-commercial but does the work for now
   useEffect(() => {
           const fetchWeather = async () => {
             const url = "https://api.open-meteo.com/v1/forecast";

@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView, Switch } from 'react-native';
 import COLORS from '../constants/colors';
 import { FontAwesome6 } from '@expo/vector-icons';
+import axios from 'axios';
 
 import {
     StyledContainer,
@@ -25,10 +26,38 @@ const Irrigate: FC = (): JSX.Element => {
    
     const [isSystemOn, setIsSystemOn] = useState(false);
     const {currentTime, greeting} = useGreeting(); // Destructuring hook values
+    const [temperature, setTemperature] = useState<number | null>(null);
 
     const toggleSystem = () => {
         setIsSystemOn((prev) => !prev);
     };
+
+  // using openmeteo -it is non-commercial but does the work for now
+  useEffect(() => {
+    const fetchWeather = async () => {
+      const url = "https://api.open-meteo.com/v1/forecast";
+      const params = {
+        latitude: -1.94, 
+        longitude: 29.87,  
+        hourly: "temperature_2m",
+      };
+
+      try {
+        const response = await axios.get(url, { params });
+        console.log("Weather API Response:", response.data);
+
+        const hourly = response.data.hourly;
+        if (hourly && hourly.temperature_2m) {
+          const temperatureData = hourly.temperature_2m[0];  // Assuming you want the first temperature value
+          setTemperature(temperatureData);  
+        }
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeather();
+  }, []); 
 
     return (
         <ScrollView>
@@ -45,7 +74,7 @@ const Irrigate: FC = (): JSX.Element => {
                         <PagePic resizeMode="cover" source={require('../assets/profile.jpg')} />
                         <UserDeets>
                             <UserName>John Smith Doe</UserName>
-                            <UserEmail style={{ fontSize: 10 }}>Userunlknow@gmail.com</UserEmail>
+                            <UserEmail style={{ fontSize: 10 }}>edwige@gmail.com</UserEmail>
                         </UserDeets>
                     </InHeadPart>
                 </Header>
@@ -60,7 +89,7 @@ const Irrigate: FC = (): JSX.Element => {
                                 <SalutePic resizeMode="cover" source={require('../assets/morning.png')} />
                                 <View style={styles.temperatureTextContainer}>
                                     <Text style={styles.temperatureText}>
-                                        21
+                                        { temperature != null ? temperature : '...' }
                                         <Text style={styles.degreeText}>°C</Text>
                                     </Text>
                                 </View>

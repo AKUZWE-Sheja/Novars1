@@ -1,7 +1,9 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect        } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import useGreeting from '../hooks/useGreeting'; // Import the custom hook
+import { fetchWeatherApi } from 'openmeteo';
+import axios from 'axios';
 
 import {
   StyledContainer,
@@ -20,6 +22,34 @@ import ScheduleTable from 'components/AgroTable';
 
 const Dashboard: FC = (): JSX.Element => {
   const { greeting } = useGreeting();  // Use the custom hook for the greeting message
+
+  const [temperature, setTemperature] = useState<number | null>(null);
+  
+  useEffect(() => {
+          const fetchWeather = async () => {
+            const url = "https://api.open-meteo.com/v1/forecast";
+            const params = {
+              latitude: -1.94, 
+              longitude: 29.87,  
+              hourly: "temperature_2m",
+            };
+      
+            try {
+              const response = await axios.get(url, { params });
+              console.log("Weather API Response:", response.data);
+      
+              const hourly = response.data.hourly;
+              if (hourly && hourly.temperature_2m) {
+                const temperatureData = hourly.temperature_2m[0];  // Assuming you want the first temperature value
+                setTemperature(temperatureData);  
+              }
+            } catch (error) {
+              console.error("Error fetching weather data:", error);
+            }
+          };
+      
+          fetchWeather();
+        }, []); 
 
   return (
     <StyledContainer>
@@ -47,7 +77,7 @@ const Dashboard: FC = (): JSX.Element => {
               <SalutePic resizeMode="cover" source={require('../assets/morning.png')} />
               <View style={styles.temperatureTextContainer}>
                 <Text style={styles.temperatureText}>
-                  28
+                  {temperature !== null ? temperature : '...'}
                   <Text style={styles.degreeText}>°C</Text>
                 </Text>
               </View>
